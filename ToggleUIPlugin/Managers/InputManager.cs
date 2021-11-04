@@ -5,8 +5,8 @@ namespace ToggleUIPlugin.Managers
 {
     public class ToggleUIInputManager : MonoBehaviour
     {
-        private const KeyCode ToggleUI = KeyCode.F1;
-        private const KeyCode ToggleBody = KeyCode.F2;
+        private static readonly KeyCode ToggleUI = ConfigManager.ToggleUIKey;
+        private static readonly KeyCode ToggleBody = ConfigManager.ToggleBodyKey;
         
         public ToggleUIInputManager(IntPtr intPtr) : base(intPtr)
         {

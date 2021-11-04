@@ -70,7 +70,6 @@ namespace ToggleUIPlugin.Managers
             }
         }
         
-        // Cant use UI apply disable, disables pings and maps too...
         public static void HideUI()
         {
             _crosshair.active = false; 

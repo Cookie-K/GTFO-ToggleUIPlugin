@@ -540,6 +540,8 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Entry.cs" />
+        <Compile Include="enum\KeyBinds.cs" />
+        <Compile Include="Managers\ConfigManager.cs" />
         <Compile Include="Managers\InputManager.cs" />
         <Compile Include="Managers\ToggleUIManager.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
