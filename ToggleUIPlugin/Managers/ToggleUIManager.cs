@@ -13,6 +13,7 @@ namespace ToggleUIPlugin.Managers
         private static GameObject _body;
         private static GameObject _fpArms;
         private static GameObject _crosshair;
+        private static GameObject _uiNavMarkerLayer;
 
         public ToggleUIManager(IntPtr intPtr) : base(intPtr)
         {
@@ -21,22 +22,23 @@ namespace ToggleUIPlugin.Managers
 
         public void Awake()
         {
-            _crosshair = GuiManager.CrosshairLayer.Root.FindChild("CrosshairLayer").gameObject;
             _ui = GuiManager.PlayerLayer.Root.FindChild("PlayerLayer").gameObject;
             _body = PlayerManager.GetLocalPlayerAgent().AnimatorBody.transform.parent.gameObject;
             _fpArms = PlayerManager.GetLocalPlayerAgent().FPItemHolder.gameObject;
+            _crosshair = GuiManager.CrosshairLayer.Root.FindChild("CrosshairLayer").gameObject;
+            _uiNavMarkerLayer = GuiManager.PlayerLayer.Root.FindChild("NavMarkerLayer").gameObject;
         }
 
         private void Update()
         {
             if (_uiHidden && _ui.active)
             {
-                HideUI();
+                SetUIVisible(false);
             }
 
             if (_bodyHidden && _fpArms.active)
             {
-                HideBody();
+                SetBodyVisible(false);
             }
 
             if ((_uiHidden || _bodyHidden) && _crosshair.active)
@@ -47,57 +49,28 @@ namespace ToggleUIPlugin.Managers
 
         public static void ToggleUI()
         {
-            if (_uiHidden)
-            {
-                ShowUI();
-            }
-            else
-            {
-                HideUI();
-            } 
-                
+            SetUIVisible(_uiHidden);
         }
 
         public static void ToggleBody()
         {
-            if (_bodyHidden)
-            {
-                ShowBody();
-            }
-            else
-            {
-                HideBody();
-            }
+            SetBodyVisible(_bodyHidden);
         }
         
-        public static void HideUI()
+        private static void SetUIVisible(bool value)
         {
-            _crosshair.active = false; 
-            _ui.active = false;
-            _uiHidden = true;
+            _crosshair.active = value; 
+            _ui.active = value;
+            _uiNavMarkerLayer.active = value;
+            _uiHidden = !value;
         }
         
-        public static void ShowUI()
+        private static void SetBodyVisible(bool value)
         {
-            _crosshair.active = true; 
-            _ui.active = true;
-            _uiHidden = false;
-        }
-
-        public static void HideBody()
-        {
-            _body.active = false;
-            _fpArms.active = false;
-            _crosshair.active = false;
-            _bodyHidden = true;
-        }
-        
-        public static void ShowBody()
-        {
-            _body.active = true;
-            _fpArms.active = true;
-            _crosshair.active = true;
-            _bodyHidden = false;
+            _body.active = value;
+            _fpArms.active = value;
+            _crosshair.active = value;
+            _bodyHidden = !value;
         }
     }
 }
