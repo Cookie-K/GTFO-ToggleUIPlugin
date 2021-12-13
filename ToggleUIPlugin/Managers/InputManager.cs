@@ -18,7 +18,7 @@ namespace ToggleUIPlugin.Managers
             if (Input.GetKeyDown(ToggleUI))
             {
                 ToggleUICore.log.LogInfo("Toggling UI visibility");
-                ToggleUIManager.ToggleUI();
+                ToggleUIManager.ToggleUI(ConfigManager.ExcludeInteraction);
             }
             if (Input.GetKeyDown(ToggleBody))
             {

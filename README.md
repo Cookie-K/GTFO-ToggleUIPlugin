@@ -3,22 +3,16 @@
 A simple plugin to toggle UI and body visibility 
 
 ## Default Key Bind Config
-- ToggleUIKey: F1
-- ToggleBodyKey: F2
-
-## API for Plugin Devs
-For plugin developers that want control over UI and body visibility the following methods are exposed by `ToggleUIManager`
-
-- `ToggleUI`
-- `ToggleBody`
-- `HideUI`
-- `ShowUI`
-- `HideBody`
-- `ShowBody`
+- Toggle UI Key: F1
+- Toggle Body Key: F2
+- Exclude Interaction: true
 
 ### Developed by Cookie_K
 
 ### Patches
+- 1.0.3: 
+    - Added config option to also remove interaction UI
+
 - 1.0.2: 
     - Updated to remove nave marker layer info and watermark
 

@@ -16,7 +16,7 @@ namespace ToggleUIPlugin
             MODNAME = "ToggleUIPlugin",
             AUTHOR = "Cookie_K",
             GUID = "com." + AUTHOR + "." + MODNAME,
-            VERSION = "1.0.2";
+            VERSION = "1.0.3";
 
         public static ManualLogSource log;
 

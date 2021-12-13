@@ -13,6 +13,7 @@ namespace ToggleUIPlugin.Managers
         private static GameObject _body;
         private static GameObject _fpArms;
         private static GameObject _crosshair;
+        private static GameObject _watermark;
         private static GameObject _uiNavMarkerLayer;
 
         public ToggleUIManager(IntPtr intPtr) : base(intPtr)
@@ -26,6 +27,7 @@ namespace ToggleUIPlugin.Managers
             _body = PlayerManager.GetLocalPlayerAgent().AnimatorBody.transform.parent.gameObject;
             _fpArms = PlayerManager.GetLocalPlayerAgent().FPItemHolder.gameObject;
             _crosshair = GuiManager.CrosshairLayer.Root.FindChild("CrosshairLayer").gameObject;
+            _watermark = GuiManager.WatermarkLayer.Root.FindChild("WatermarkLayer").gameObject;
             _uiNavMarkerLayer = GuiManager.PlayerLayer.Root.FindChild("NavMarkerLayer").gameObject;
         }
 
@@ -33,7 +35,14 @@ namespace ToggleUIPlugin.Managers
         {
             if (_uiHidden && _ui.active)
             {
-                SetUIVisible(false);
+                if (ConfigManager.ExcludeInteraction)
+                {
+                    SetUIVisibleExceptInteraction(false);
+                }
+                else
+                {
+                    SetAllUIVisible(false);
+                }
             }
 
             if (_bodyHidden && _fpArms.active)
@@ -47,21 +56,37 @@ namespace ToggleUIPlugin.Managers
             }
         }
 
-        public static void ToggleUI()
+        public static void ToggleUI(bool excludeInteraction)
         {
-            SetUIVisible(_uiHidden);
+            if (excludeInteraction)
+            {
+                SetUIVisibleExceptInteraction(_uiHidden);
+            }
+            else
+            {
+                SetAllUIVisible(_uiHidden);
+            }
         }
 
         public static void ToggleBody()
         {
             SetBodyVisible(_bodyHidden);
         }
+
+        private static void SetAllUIVisible(bool value)
+        {
+            GuiManager.PlayerLayer.Root.gameObject.active = value;
+            _crosshair.active = value;
+            _uiHidden = !value;
+        }
         
-        private static void SetUIVisible(bool value)
+        private static void SetUIVisibleExceptInteraction(bool value)
         {
             _crosshair.active = value; 
             _ui.active = value;
+            _watermark.active = value;
             _uiNavMarkerLayer.active = value;
+            
             _uiHidden = !value;
         }
         
